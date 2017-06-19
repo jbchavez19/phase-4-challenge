@@ -7,6 +7,7 @@ const bodyParser = require('body-parser')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
 const database = require('./database')
+const routers = require('./routers')
 
 passport.use(new LocalStrategy(
   {
@@ -61,102 +62,7 @@ app.use((request, response, next) => {
   request.isLoggedIn = request.user ? true : false
   next()
 })
-
-app.get('/', (request, response) => {
-  database.getAlbums((error, albums) => {
-    if (error) {
-      response.status(500).render('error', {
-         error: error,
-         windowTitle: 'Error',
-         isLoggedIn: request.isLoggedIn
-      })
-    } else {
-      response.render('index', {
-        albums: albums,
-        windowTitle: 'Home',
-        isLoggedIn: request.isLoggedIn
-      })
-    }
-  })
-})
-
-app.get('/signin', (request, response) => {
-  response.render('signin', {
-    error: request.query.error,
-    windowTitle: 'Sign In',
-    isLoggedIn: request.isLoggedIn
-  })
-})
-
-app.post('/signin', passport.authenticate('local',
-  {
-    successRedirect: '/',
-    failureRedirect: '/signin?error=Invalid email or password'
-  }
-))
-
-app.get('/signout', (request, response) => {
-  request.logout()
-  response.redirect('/')
-})
-
-app.get('/signup', (request, response) => {
-  response.render('signup', {
-    error: request.query.error,
-    windowTitle: 'Sign Up',
-    isLoggedIn: request.isLoggedIn
-  })
-})
-
-app.post('/signup', (request, response) => {
-  database.findUserByEmail(request.body, (error, result) => {
-    if(error) {
-      response.status(500).render('error', {
-        error: error,
-        windowTitle: 'Error',
-        isLoggedIn: request.isLoggedIn
-      })
-    }
-    else if(result.length === 0) {
-      database.createUser(request.body, (error, result) => {
-        if(error) {
-          response.status(500).render('error', {
-            error: error,
-            windowTitle: 'Error',
-            isLoggedIn: request.isLoggedIn
-          })
-        }
-        else {
-          response.redirect('/signin?error=Account created, please sign in')
-        }
-      })
-    }
-    else {
-      response.redirect('/signup?error=Account already exists')
-    }
-  })
-})
-
-app.get('/albums/:albumID', (request, response) => {
-  const albumID = request.params.albumID
-
-  database.getAlbumsByID(albumID, (error, albums) => {
-    if (error) {
-      response.status(500).render('error', {
-        error: error,
-        windowTitle: 'Error',
-        isLoggedIn: request.isLoggedIn
-      })
-    } else {
-      const album = albums[0]
-      response.render('album', {
-        album: album,
-        windowTitle: 'Album',
-        isLoggedIn: request.isLoggedIn
-      })
-    }
-  })
-})
+app.use('/', routers)
 
 app.use((request, response) => {
   response.status(404).render('not_found', {
