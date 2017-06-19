@@ -9,14 +9,18 @@ const LocalStrategy = require('passport-local')
 const database = require('./database')
 
 passport.use(new LocalStrategy(
-  function(username, password, callback) {
-    database.findUserByUsername({ username: username }, function(error, user) {
+  {
+    usernameField: 'email',
+    passwordField: 'password'
+  },
+  function(email, password, callback) {
+    database.findUserByEmail({ email: email }, function(error, user) {
       if(error) {
         return callback(error)
       }
 
       if(!user[0]) {
-        return callback(null, false, { message: 'Incorrect username.' })
+        return callback(null, false, { message: 'Incorrect email.' })
       }
 
       if(user[0].password != password) {
@@ -72,13 +76,40 @@ app.get('/signin', (request, response) => {
 app.post('/signin', passport.authenticate('local',
   {
     successRedirect: '/',
-    failureRedirect: '/signin?error=Invalid username or password'
+    failureRedirect: '/signin?error=Invalid email or password'
   }
 ))
 
 app.get('/signout', (request, response) => {
   request.logout()
   response.redirect('/')
+})
+
+app.get('/signup', (request, response) => {
+  response.render('signup', { error: request.query.error })
+})
+
+app.post('/signup', (request, response) => {
+  database.findUserByEmail(request.body, (error, result) => {
+    if(error) {
+      console.log(error)
+      response.redirect('/signup?error=There was an error signing up')
+    }
+    else if(result.length === 0) {
+      database.createUser(request.body, (error, result) => {
+        if(error) {
+          console.log(error)
+          response.redirect('/signup?error=Account already exists')
+        }
+        else {
+          response.redirect('/signin?error=Account created, please sign in')
+        }
+      })
+    }
+    else {
+      response.redirect('/signup?error=Account already exists')
+    }
+  })
 })
 
 app.get('/albums/:albumID', (request, response) => {
