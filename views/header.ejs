@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= windowTitle %> - Vinyl</title>
+  <link rel="stylesheet" type="text/css" href="/style.css">
+  <script type="text/javascript" src="/script.js"></script>
+</head>
+<body>
+  <div class="header">
+    <h1>Vinyl</h1>
+    <span>
+      <% if(isLoggedIn) { %>
+        <a href="profile">Profile</a>
+        <a href="signout">Sign out</a>
+      <% } else { %>
+        <a href="signup">Sign Up</a>
+        <a href="signin">Sign In</a>
+      <% } %>
+    </span>
+  </div>

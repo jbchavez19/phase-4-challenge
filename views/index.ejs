@@ -1,20 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Vinyl</title>
-  <link rel="stylesheet" type="text/css" href="/style.css">
-  <script type="text/javascript" src="/script.js"></script>
-</head>
-<body>
-
-  <div class="header">
-    <h1>Vinyl</h1>
-    <span>
-      <a href="signup">Sign Up</a>
-      <a href="signin">Sign In</a>
-    </span>
-  </div>
-
+<%- include('header') -%>
   <h2>Records</h2>
 
   <div class="album-list">
@@ -25,6 +9,4 @@
       </div>
     <% }) %>
   </div>
-
-</body>
-</html>
+<%- include('footer') -%>

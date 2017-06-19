@@ -57,20 +57,35 @@ app.use(cookieSession({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use((request, response, next) => {
+  request.isLoggedIn = request.user ? true : false
+  next()
+})
 
 app.get('/', (request, response) => {
-  console.log(request.user)
   database.getAlbums((error, albums) => {
     if (error) {
-      response.status(500).render('error', { error: error })
+      response.status(500).render('error', {
+         error: error,
+         windowTitle: 'Error',
+         isLoggedIn: request.isLoggedIn
+      })
     } else {
-      response.render('index', { albums: albums })
+      response.render('index', {
+        albums: albums,
+        windowTitle: 'Home',
+        isLoggedIn: request.isLoggedIn
+      })
     }
   })
 })
 
 app.get('/signin', (request, response) => {
-  response.render('signin', { error: request.query.error})
+  response.render('signin', {
+    error: request.query.error,
+    windowTitle: 'Sign In',
+    isLoggedIn: request.isLoggedIn
+  })
 })
 
 app.post('/signin', passport.authenticate('local',
@@ -86,20 +101,30 @@ app.get('/signout', (request, response) => {
 })
 
 app.get('/signup', (request, response) => {
-  response.render('signup', { error: request.query.error })
+  response.render('signup', {
+    error: request.query.error,
+    windowTitle: 'Sign Up',
+    isLoggedIn: request.isLoggedIn
+  })
 })
 
 app.post('/signup', (request, response) => {
   database.findUserByEmail(request.body, (error, result) => {
     if(error) {
-      console.log(error)
-      response.redirect('/signup?error=There was an error signing up')
+      response.status(500).render('error', {
+        error: error,
+        windowTitle: 'Error',
+        isLoggedIn: request.isLoggedIn
+      })
     }
     else if(result.length === 0) {
       database.createUser(request.body, (error, result) => {
         if(error) {
-          console.log(error)
-          response.redirect('/signup?error=Account already exists')
+          response.status(500).render('error', {
+            error: error,
+            windowTitle: 'Error',
+            isLoggedIn: request.isLoggedIn
+          })
         }
         else {
           response.redirect('/signin?error=Account created, please sign in')
@@ -117,16 +142,27 @@ app.get('/albums/:albumID', (request, response) => {
 
   database.getAlbumsByID(albumID, (error, albums) => {
     if (error) {
-      response.status(500).render('error', { error: error })
+      response.status(500).render('error', {
+        error: error,
+        windowTitle: 'Error',
+        isLoggedIn: request.isLoggedIn
+      })
     } else {
       const album = albums[0]
-      response.render('album', { album: album })
+      response.render('album', {
+        album: album,
+        windowTitle: 'Album',
+        isLoggedIn: request.isLoggedIn
+      })
     }
   })
 })
 
 app.use((request, response) => {
-  response.status(404).render('not_found')
+  response.status(404).render('not_found', {
+    windowTitle: '404 Not Found',
+    isLoggedIn: request.isLoggedIn
+  })
 })
 
 const port = process.env.PORT || 3000
