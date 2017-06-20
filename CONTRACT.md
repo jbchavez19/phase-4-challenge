@@ -80,7 +80,7 @@ Allow users to see albums and leave reviews on them.
 
 **Users can...**
 
-- [ ] __20:__ View all albums on the home page (under "Records").
+- [x] __20:__ View all albums on the home page (under "Records").
 - [ ] __20:__ View the most recent 3 reviews on the home page.
 - [ ] __20:__ Click on an album title to go to the album page (e.g. "/albums/1").
 - [ ] __20:__ See the site-wide header on the album page.

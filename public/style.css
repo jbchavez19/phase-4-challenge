@@ -8,26 +8,46 @@ a, a:visited {
   color: black;
 }
 
-.index-banner {
-  width: 100vw;
-  margin: 0;
-  padding: 0;
+a:hover {
+  color: red;
 }
 
-.header {
+footer {
+  margin: 5vw 3vw;
+}
+
+header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0;
-  padding: 0 3vw;
+  margin: 0 3vw;
+  padding: 0;
   font-size: 14px;
   border-bottom: 1px solid black;
 }
 
-.profile-block {
-  display: flex;
+.header-logo {
+  text-decoration: none;
+}
+
+.index-block {
+  margin: 0;
+  padding: 0 3vw;
+}
+
+.index-block img {
+  width: 94vw;
+  height: 35vw;
 }
 
 .splash-block {
   text-align: center;
+}
+
+.splash-block img {
+  width: 94vw;
+}
+
+.profile-block {
+  display: flex;
 }

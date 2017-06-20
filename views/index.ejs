@@ -1,13 +1,15 @@
 <%- include('header') -%>
-  <img class="index-banner" src="./disc.png">
-  <h2>Records</h2>
+  <div class="index-block">
+    <img src="./disc.png">
+    <h2>Records</h2>
 
-  <div class="album-list">
-    <% albums.forEach(function(album) { %>
-      <div>
-        <h5><a href="/albums/<%= album.id %>"><%= album.title %></a></h5>
-        <span><%= album.artist %></span>
-      </div>
-    <% }) %>
+    <div class="album-list">
+      <% albums.forEach(function(album) { %>
+        <div>
+          <h5><a href="/albums/<%= album.id %>"><%= album.title %></a></h5>
+          <span><%= album.artist %></span>
+        </div>
+      <% }) %>
+    </div>
   </div>
 <%- include('footer') -%>
