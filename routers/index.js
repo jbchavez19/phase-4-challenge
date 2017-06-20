@@ -14,7 +14,7 @@ router.get('/', (request, response, next) => {
     database.getAlbums((error, albums) => {
       if (error) { return next(error) }
 
-      database.getReviews({ where: null, limit: 3 }, (error, reviews) => {
+      database.getReviews({ limit: 3 }, (error, reviews) => {
         if (error) { return next(error) }
 
         response.render('index', {

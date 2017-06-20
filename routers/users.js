@@ -21,10 +21,17 @@ router.get('/:userId', (request, response, next) => {
 
     if (result.length === 0) { response.redirect('/') }
     else {
-      response.render('profile', {
-        windowTitle: 'Profile Page',
-        profile: result[0],
-        isLoggedIn: request.isLoggedIn
+      const params = { filter: 'user_id', filterValue: userId }
+
+      database.getReviews(params, (error, reviews) => {
+        if (error) { return next(error) }
+
+        response.render('profile', {
+          windowTitle: 'Profile Page',
+          reviews: reviews,
+          profile: result[0],
+          isLoggedIn: request.isLoggedIn
+        })
       })
     }
   })

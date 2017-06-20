@@ -44,7 +44,7 @@ router.get('/:albumID', (request, response, next) => {
   database.getAlbumsByID(albumID, (error, albums) => {
     if (error) { return next(error) }
 
-    const params = { albumId: albumID, limit: null }
+    const params = { filter: 'album_id', filterValue: albumID }
 
     database.getReviews(params, (error, reviews) => {
       if (error) { return next(error) }

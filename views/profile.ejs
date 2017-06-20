@@ -5,6 +5,19 @@
       <h2><%= profile.name %></h2>
       <p>Email: <%= profile.email %></p>
       <p>Date Joined: <%= profile.date_joined %></p>
+
+      <h2>Reviews</h2>
+      <% reviews.forEach(function(review) { %>
+      <% review.date = new Date(review.date).toDateString() %>
+        <div class="review">
+          <div class="review-header">
+            <a href="/albums/<%= review.album_id %>"><%= review.album_title %></a>
+            <span><%= review.date %></span>
+          </div>
+          <p><%= review.review %></p>
+          <span class="review-author">by <a href="/users/<%= review.author_id %>"><%= review.author %></a></span>
+        </div>
+      <% }) %>
     </div>
   </div>
 <%- include('footer') -%>

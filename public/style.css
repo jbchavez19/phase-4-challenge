@@ -102,6 +102,13 @@ header {
 
 .profile {
   display: flex;
+  margin: 0;
+  padding: 3vw;
+}
+
+.profile-picture {
+  padding: 2vw;
+  align-self: flex-start;
 }
 
 .review {

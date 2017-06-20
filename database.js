@@ -34,8 +34,8 @@ const createReview = function(params, callback) {
 
 const getReviews = function(params, callback) {
   let where = ""
-  if (params.albumId) {
-    where = " WHERE album_id = " + params.albumId
+  if (params.filter && params.filterValue) {
+    where = ` WHERE ${params.filter} = ${params.filterValue}`
   }
 
   const sql = "SELECT" +
