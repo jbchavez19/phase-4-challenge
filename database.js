@@ -26,6 +26,12 @@ const getAlbumsByID = function(albumID, callback) {
   query("SELECT * FROM albums WHERE id = $1", [albumID], callback)
 }
 
+const createReview = function(params, callback) {
+  const sql = "INSERT INTO reviews" +
+    " (album_id, user_id, review) VALUES ($1, $2, $3)"
+  query(sql, [params.albumId, params.userId, params.review], callback)
+}
+
 const getReviews = function(params, callback) {
   let where = ""
   if (params.albumId) {
@@ -50,11 +56,8 @@ const getReviews = function(params, callback) {
 }
 
 const createUser = function(user, callback) {
-  query(
-    "INSERT INTO users (email, name, password) VALUES ($1, $2, $3)",
-    [user.email, user.name, user.password],
-    callback
-  )
+  const sql = "INSERT INTO users (email, name, password) VALUES ($1, $2, $3)"
+  query(sql, [user.email, user.name, user.password], callback)
 }
 
 const findUserByEmail = function(user, callback) {
@@ -68,6 +71,7 @@ const findUserById = function(id, callback) {
 module.exports = {
   getAlbums,
   getAlbumsByID,
+  createReview,
   getReviews,
   createUser,
   findUserByEmail,

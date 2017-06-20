@@ -86,9 +86,9 @@ Allow users to see albums and leave reviews on them.
 - [x] __20:__ See the site-wide header on the album page.
 - [x] __20:__ See the name of the album on the album page.
 - [x] __20:__ See all reviews for the album on album page sorted by newest first.
-- [ ] __20:__ Use an "Add review" button on the album page to pull up the new review form.
-- [ ] __20:__ Create a new review for an album using the new review form.
-- [ ] __20:__ See their created reviews on the album page.
+- [x] __20:__ Use an "Add review" button on the album page to pull up the new review form.
+- [x] __20:__ Create a new review for an album using the new review form.
+- [x] __20:__ See their created reviews on the album page.
 
 **On the user's profile page, they can...**
 
