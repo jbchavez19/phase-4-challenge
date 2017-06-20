@@ -3,3 +3,31 @@ html, body {
   padding: 0;
   width: 100vw;
 }
+
+a, a:visited {
+  color: black;
+}
+
+.index-banner {
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  padding: 0 3vw;
+  font-size: 14px;
+  border-bottom: 1px solid black;
+}
+
+.profile-block {
+  display: flex;
+}
+
+.splash-block {
+  text-align: center;
+}
