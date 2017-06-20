@@ -1,0 +1,9 @@
+<%- include('header') %>
+  <div class="new-review">
+    <h2>New review for <%= album.title %><h2>
+    <form action="/reviews/album/<%= album.id %>/post" method="post">
+      <textarea cols="60" rows="5" name="review" placeholder="Review" required></textarea><br>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+<%- include('footer') %>

@@ -3,24 +3,24 @@ const database = require('../database')
 
 const router = express.Router()
 
-router.get('/:albumID', (request, response) => {
+router.get('/:albumID', (request, response, next) => {
   const albumID = request.params.albumID
 
   database.getAlbumsByID(albumID, (error, albums) => {
-    if (error) {
-      response.status(500).render('error', {
-        error: error,
-        windowTitle: 'Error',
-        isLoggedIn: request.isLoggedIn
-      })
-    } else {
-      const album = albums[0]
+    if (error) { return next(error) }
+
+    const params = { filter: 'album_id', filterValue: albumID }
+
+    database.getReviews(params, (error, reviews) => {
+      if (error) { return next(error) }
+
       response.render('album', {
-        album: album,
+        album: albums[0],
+        reviews: reviews,
         windowTitle: 'Album',
         isLoggedIn: request.isLoggedIn
       })
-    }
+    })
   })
 })
 

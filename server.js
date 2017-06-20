@@ -16,15 +16,15 @@ passport.use(new LocalStrategy(
   },
   function(email, password, callback) {
     database.findUserByEmail({ email: email }, function(error, user) {
-      if(error) {
+      if (error) {
         return callback(error)
       }
 
-      if(!user[0]) {
+      if (!user[0]) {
         return callback(null, false, { message: 'Incorrect email.' })
       }
 
-      if(user[0].password != password) {
+      if (user[0].password != password) {
         return callback(null, false, { message: 'Incorrect password.' })
       }
 
@@ -39,8 +39,8 @@ passport.serializeUser(function(user, callback) {
 
 passport.deserializeUser(function(id, callback) {
   database.findUserById(id, function(error, user) {
-    if(error) { return callback(error) }
-    if(user.length === 0) { return callback(null, null) }
+    if (error) { return callback(error) }
+    if (user.length === 0) { return callback(null, null) }
     callback(null, user[0])
   })
 })
@@ -60,10 +60,19 @@ app.use(cookieSession({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use((request, response, next) => {
-  request.isLoggedIn = request.user ? true : false
+  request.isLoggedIn = request.user ? request.user.id : false
   next()
 })
 app.use('/', routers)
+
+app.use((error, request, response, next) => {
+  console.log("Error: ", error)
+  response.status(500).render('error', {
+     error: error,
+     windowTitle: 'Error',
+     isLoggedIn: request.isLoggedIn
+  })
+})
 
 app.use((request, response) => {
   response.status(404).render('not_found', {

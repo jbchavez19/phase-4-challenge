@@ -3,28 +3,29 @@ const passport = require('passport')
 const database = require('../database')
 const users = require('./users')
 const albums = require('./albums')
+const reviews = require('./reviews')
 
 const router = express.Router()
 
 router.use('/users', users)
 router.use('/albums', albums)
+router.use('/reviews', reviews)
 
-router.get('/', (request, response) => {
-  if(request.isLoggedIn) {
+router.get('/', (request, response, next) => {
+  if (request.isLoggedIn) {
     database.getAlbums((error, albums) => {
-      if (error) {
-        response.status(500).render('error', {
-           error: error,
-           windowTitle: 'Error',
-           isLoggedIn: request.isLoggedIn
-        })
-      } else {
+      if (error) { return next(error) }
+
+      database.getReviews({ limit: 3 }, (error, reviews) => {
+        if (error) { return next(error) }
+
         response.render('index', {
           albums: albums,
+          reviews: reviews,
           windowTitle: 'Home',
           isLoggedIn: request.isLoggedIn
         })
-      }
+      })
     })
   }
   else {
@@ -64,27 +65,15 @@ router.get('/signup', (request, response) => {
   })
 })
 
-router.post('/signup', (request, response) => {
+router.post('/signup', (request, response, next) => {
   database.findUserByEmail(request.body, (error, result) => {
-    if(error) {
-      response.status(500).render('error', {
-        error: error,
-        windowTitle: 'Error',
-        isLoggedIn: request.isLoggedIn
-      })
-    }
-    else if(result.length === 0) {
+    if (error) { return next(error) }
+
+    if (result.length === 0) {
       database.createUser(request.body, (error, result) => {
-        if(error) {
-          response.status(500).render('error', {
-            error: error,
-            windowTitle: 'Error',
-            isLoggedIn: request.isLoggedIn
-          })
-        }
-        else {
-          response.redirect('/signin?error=Account created, please sign in')
-        }
+        if (error) { return next(error) }
+
+        response.redirect('/signin?error=Account created, please sign in')
       })
     }
     else {

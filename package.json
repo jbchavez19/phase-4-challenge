@@ -8,8 +8,8 @@
     "db:create": "createdb vinyl",
     "db:drop": "dropdb vinyl",
     "db:schema": "psql -d vinyl < schema.sql",
-    "db:seed": "psql -d vinyl < albums.sql",
-    "db:reset": "dropdb vinyl && createdb vinyl && psql -d vinyl < schema.sql && psql -d vinyl < albums.sql"
+    "db:seed": "psql -d vinyl < seeds.sql",
+    "db:reset": "dropdb vinyl && createdb vinyl && psql -d vinyl < schema.sql && psql -d vinyl < seeds.sql"
   },
   "license": "MIT",
   "dependencies": {

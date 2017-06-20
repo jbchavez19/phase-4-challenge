@@ -1,13 +1,30 @@
 <%- include('header') -%>
-  <img class="index-banner" src="./disc.png">
-  <h2>Records</h2>
-
-  <div class="album-list">
-    <% albums.forEach(function(album) { %>
-      <div>
-        <h5><a href="/albums/<%= album.id %>"><%= album.title %></a></h5>
-        <span><%= album.artist %></span>
+  <div class="index">
+    <img src="./disc.png">
+    <div class="index-main">
+      <div class="index-albums-list">
+        <h2>Records</h2>
+        <% albums.forEach(function(album) { %>
+          <div>
+            <h5><a href="/albums/<%= album.id %>"><%= album.title %></a></h5>
+            <span><%= album.artist %></span>
+          </div>
+        <% }) %>
       </div>
-    <% }) %>
+      <div class="index-recent-reviews">
+        <h2>Recent Reviews</h2>
+        <% reviews.forEach(function(review) { %>
+        <% review.date = new Date(review.date).toDateString() %>
+          <div class="review">
+            <div class="review-header">
+              <a href="/albums/<%= review.album_id %>"><%= review.album_title %></a>
+              <span><%= review.date %></span>
+            </div>
+            <p><%= review.review %></p>
+            <span class="review-author">by <a href="/users/<%= review.author_id %>"><%= review.author %></a></span>
+          </div>
+        <% }) %>
+      </div>
+    </div>
   </div>
 <%- include('footer') -%>

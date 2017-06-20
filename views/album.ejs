@@ -1,8 +1,28 @@
 <%- include('header') -%>
-  <h1><%= album.title %></h1>
-  <em>by <%= album.artist %></em>
+  <div class="album">
+    <div class="album-header">
+      <h2><%= album.title %></h1>
+      <em>by <%= album.artist %></em>
+    </div>
 
-  <h2>Reviews</h2>
 
-  <!-- TODO: implement album reviews -->
+    <div class="album-reviews">
+      <form action="/reviews/album/<%= album.id %>" method="get">
+        <h3>Reviews</h3>
+        <input type="hidden" name="title" value="<%= album.title %>">
+        <button type="submit">Add Review</button>
+      </form>
+      <% reviews.forEach(function(review) { %>
+      <% review.date = new Date(review.date).toDateString() %>
+        <div class="review">
+          <div class="review-header">
+            <a href="/albums/<%= review.album_id %>"><%= review.album_title %></a>
+            <span><%= review.date %></span>
+          </div>
+          <p><%= review.review %></p>
+          <span class="review-author">by <a href="/users/<%= review.author_id %>"><%= review.author %></a></span>
+        </div>
+      <% }) %>
+    </div>
+  </div>
 <%- include('footer') -%>
