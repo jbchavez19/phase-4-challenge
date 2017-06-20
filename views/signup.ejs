@@ -1,15 +1,17 @@
 <%- include('header') -%>
-  <h2>Sign Up</h2>
-
-  <% if (error) { %>
-    <h3><%= error %></h3>
-  <% } %>
-
   <div class="signup">
+    <h2>Sign Up</h2>
+
+    <% if (error) { %>
+      <h3><%= error %></h3>
+    <% } %>
     <form action="/signup" method="post">
-      <input type="text" placeholder="Name" name="name"><br>
-      <input type="email" placeholder="Email" name="email"><br>
-      <input type="password" placeholder="Password" name="password"><br>
+      Name<br>
+      <input type="text" placeholder="Name" name="name"><br><br>
+      Email<br>
+      <input type="email" placeholder="Email" name="email"><br><br>
+      Password<br>
+      <input type="password" placeholder="Password" name="password"><br><br>
       <input type="submit" value="Sign Up">
     </form>
   </div>

@@ -2,29 +2,32 @@
 
 A community for record enthusiasts to review their favorite albums.
 
-Part of the application has already been built for you. Your job is to take it to completion.
-
 ## Getting Started
 
-Run `$ npm run` to see the list of commands available. To see what each command does, look at `package.json`.
-
-The app uses a basic Express file structure, and includes SQL files to set up the schema and import data.
+Follow these instructions to set up Vinyl
 
 ```sh
-albums.sql          # seed album data
-database.js         # database connection and queries
-package.json        # npm standard
-public/             # static assets go here
-README.md           # you are here
-schema.sql          # define database schema here
-server.js           # web server
-views/              # html templates go here
+# Clone repository to your machine
+git clone https://github.com/jbchavez19/phase-4-challenge.git
+
+# Navigate to project directory
+cd phase-4-challenge
+
+# Install dependencies
+npm install
+
+# Setup database (make sure postgres is running)
+npm run db:create
+npm run db:schema
+npm run db:seed
+
+# Setup Environment file
+touch .env
+# Open .env for editing, add the following, and save
+SESSION_KEY=WRITE_A_SESSION_KEY_HERE
+
+# Start server
+npm run start
+
+# Vinyl should be running on http://localhost:3000/
 ```
-
-### Setting Up Your Database
-
-Use the following commands to set up and seed your database:
-
-1. Create PostgreSQL database `vinyl`: `$ npm run db:create`
-1. Set up database tables from `schema.sql`: `$ npm run db:schema`
-1. Load seed data from `albums.sql`: `$ npm run db:seed`
