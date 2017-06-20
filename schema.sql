@@ -11,3 +11,11 @@ CREATE TABLE users (
   password VARCHAR(255) NOT NULL,
   date_joined TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE reviews (
+  id SERIAL,
+  album_id INTEGER NOT NULL,
+  user_id INTEGER NOT NULL,
+  review TEXT NOT NULL,
+  date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
