@@ -21,6 +21,11 @@ npm run db:create
 npm run db:schema
 npm run db:seed
 
+# Setup Environment file
+touch .env
+# Open .env for editing, add the following, and save
+SESSION_KEY=WRITE_A_SESSION_KEY_HERE
+
 # Start server
 npm run start
 
