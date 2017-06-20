@@ -65,6 +65,14 @@ app.use((request, response, next) => {
 })
 app.use('/', routers)
 
+app.use((error, request, response, next) => {
+  response.status(500).render('error', {
+     error: error,
+     windowTitle: 'Error',
+     isLoggedIn: request.isLoggedIn
+  })
+})
+
 app.use((request, response) => {
   response.status(404).render('not_found', {
     windowTitle: '404 Not Found',

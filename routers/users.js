@@ -12,20 +12,14 @@ router.get('/me', (request, response) => {
   }
 })
 
-router.get('/:userId', (request, response) => {
+router.get('/:userId', (request, response, next) => {
   const { userId } = request.params
 
+
   database.findUserById(userId, (error, result) => {
-    if(error || result.length === 0) {
-      if(!error) {
-        error = new Error('User does not exist')
-      }
-      response.status(500).render('error', {
-         error: error,
-         windowTitle: 'Error',
-         isLoggedIn: request.isLoggedIn
-      })
-    }
+    if(error) { return next(error) }
+
+    if(result.length === 0) { response.redirect('/') }
     else {
       response.render('profile', {
         windowTitle: 'Profile Page',

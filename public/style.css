@@ -40,6 +40,14 @@ header {
   height: 35vw;
 }
 
+.index-main {
+  display: flex;
+}
+
+.index-albums-list, .index-recent-reviews {
+  width: 50%;
+}
+
 .splash {
   text-align: center;
 }
@@ -50,4 +58,19 @@ header {
 
 .profile {
   display: flex;
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 3vw;
+}
+
+.review-author {
+  margin-left: auto;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
 }
