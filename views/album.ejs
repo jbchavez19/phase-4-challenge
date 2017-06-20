@@ -7,7 +7,11 @@
 
 
     <div class="album-reviews">
-      <h3>Reviews</h3>
+      <form action="<%= album.id %>/review" method="get">
+        <h3>Reviews</h3>
+        <input type="hidden" name="title" value="<%= album.title %>">
+        <button type="submit">Add Review</button>
+      </form>
       <% reviews.forEach(function(review) { %>
       <% review.date = new Date(review.date).toDateString() %>
         <div class="review">
