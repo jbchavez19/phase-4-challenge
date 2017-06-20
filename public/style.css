@@ -30,24 +30,24 @@ header {
   text-decoration: none;
 }
 
-.index-block {
+.index {
   margin: 0;
   padding: 0 3vw;
 }
 
-.index-block img {
+.index img {
   width: 94vw;
   height: 35vw;
 }
 
-.splash-block {
+.splash {
   text-align: center;
 }
 
-.splash-block img {
+.splash img {
   width: 94vw;
 }
 
-.profile-block {
+.profile {
   display: flex;
 }

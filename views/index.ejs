@@ -1,15 +1,18 @@
 <%- include('header') -%>
-  <div class="index-block">
+  <div class="index">
     <img src="./disc.png">
-    <h2>Records</h2>
-
-    <div class="album-list">
-      <% albums.forEach(function(album) { %>
-        <div>
-          <h5><a href="/albums/<%= album.id %>"><%= album.title %></a></h5>
-          <span><%= album.artist %></span>
-        </div>
-      <% }) %>
+    <div class="index-main">
+      <div class="index-albums-list">
+        <h2>Records</h2>
+        <% albums.forEach(function(album) { %>
+          <div>
+            <h5><a href="/albums/<%= album.id %>"><%= album.title %></a></h5>
+            <span><%= album.artist %></span>
+          </div>
+        <% }) %>
+      </div>
+      <div class="index-recent-reviews">
+      </div>
     </div>
   </div>
 <%- include('footer') -%>
