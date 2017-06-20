@@ -19,3 +19,7 @@ html, body {
   font-size: 14px;
   border-bottom: 1px solid black;
 }
+
+.profile-block {
+  display: flex;
+}

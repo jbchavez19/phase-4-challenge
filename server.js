@@ -40,6 +40,7 @@ passport.serializeUser(function(user, callback) {
 passport.deserializeUser(function(id, callback) {
   database.findUserById(id, function(error, user) {
     if(error) { return callback(error) }
+    if(user.length === 0) { return callback(null, null) }
     callback(null, user[0])
   })
 })

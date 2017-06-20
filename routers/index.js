@@ -37,7 +37,7 @@ router.get('/signin', (request, response) => {
 
 router.post('/signin', passport.authenticate('local',
   {
-    successRedirect: '/',
+    successRedirect: `/users/me`,
     failureRedirect: '/signin?error=Invalid email or password'
   }
 ))
