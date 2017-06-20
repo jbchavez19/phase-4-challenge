@@ -27,6 +27,11 @@ const getAlbumsByID = function(albumID, callback) {
 }
 
 const getReviews = function(params, callback) {
+  let where = ""
+  if (params.albumId) {
+    where = " WHERE album_id = " + params.albumId
+  }
+
   const sql = "SELECT" +
     " album_id," +
     " albums.title AS album_title," +
@@ -36,8 +41,8 @@ const getReviews = function(params, callback) {
     " users.name AS author" +
     " FROM reviews" +
     " INNER JOIN users ON reviews.user_id = users.id" +
-    " INNER JOIN albums ON reviews.album_id = albums.id " +
-    params.where +
+    " INNER JOIN albums ON reviews.album_id = albums.id" +
+    where +
     " ORDER BY reviews.id" +
     " DESC" +
     " LIMIT $1"

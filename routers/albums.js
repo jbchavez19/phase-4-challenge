@@ -9,7 +9,7 @@ router.get('/:albumID', (request, response, next) => {
   database.getAlbumsByID(albumID, (error, albums) => {
     if (error) { return next(error) }
 
-    const reviewParams = { where: `WHERE album_id = ${albumID}`, limit: null }
+    const reviewParams = { albumId: albumID, limit: null }
     database.getReviews(reviewParams, (error, reviews) => {
       if (error) { return next(error) }
 
