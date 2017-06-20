@@ -35,21 +35,26 @@ router.post('/:reviewId/delete', (request, response, next) => {
 
 router.post('/album/:albumId/post', (request, response, next) => {
   if (request.isLoggedIn) {
-    const albumId = request.params.albumId
-    const params = {
-      albumId: albumId,
-      userId: request.user.id,
-      review: request.body.review
+    if(request.body.review && request.body.review.length > 0) {
+      const albumId = request.params.albumId
+      const params = {
+        albumId: albumId,
+        userId: request.user.id,
+        review: request.body.review
+      }
+
+      database.createReview(params, (error, result) => {
+        if (error) { return next(error) }
+
+        response.redirect(`/albums/${albumId}`)
+      })
     }
-
-    database.createReview(params, (error, result) => {
-      if (error) { return next(error) }
-
-      response.redirect(`/albums/${albumId}`)
-    })
+    else {
+      response.status(400).send()
+    }
   }
   else {
-    response.redirect('/')
+    response.status(403).send()
   }
 })
 
