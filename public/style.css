@@ -66,6 +66,11 @@ header {
   padding-bottom: 3vw;
 }
 
+.review p {
+  margin: 0;
+  padding: 1vw 0;
+}
+
 .review-author {
   margin-left: auto;
 }

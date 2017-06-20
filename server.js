@@ -16,15 +16,15 @@ passport.use(new LocalStrategy(
   },
   function(email, password, callback) {
     database.findUserByEmail({ email: email }, function(error, user) {
-      if(error) {
+      if (error) {
         return callback(error)
       }
 
-      if(!user[0]) {
+      if (!user[0]) {
         return callback(null, false, { message: 'Incorrect email.' })
       }
 
-      if(user[0].password != password) {
+      if (user[0].password != password) {
         return callback(null, false, { message: 'Incorrect password.' })
       }
 
@@ -39,8 +39,8 @@ passport.serializeUser(function(user, callback) {
 
 passport.deserializeUser(function(id, callback) {
   database.findUserById(id, function(error, user) {
-    if(error) { return callback(error) }
-    if(user.length === 0) { return callback(null, null) }
+    if (error) { return callback(error) }
+    if (user.length === 0) { return callback(null, null) }
     callback(null, user[0])
   })
 })

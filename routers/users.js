@@ -4,7 +4,7 @@ const database = require('../database')
 const router = express.Router()
 
 router.get('/me', (request, response) => {
-  if(request.isLoggedIn) {
+  if (request.isLoggedIn) {
     response.redirect(`/users/${request.user.id}`)
   }
   else {
@@ -17,9 +17,9 @@ router.get('/:userId', (request, response, next) => {
 
 
   database.findUserById(userId, (error, result) => {
-    if(error) { return next(error) }
+    if (error) { return next(error) }
 
-    if(result.length === 0) { response.redirect('/') }
+    if (result.length === 0) { response.redirect('/') }
     else {
       response.render('profile', {
         windowTitle: 'Profile Page',

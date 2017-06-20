@@ -14,13 +14,14 @@
       <div class="index-recent-reviews">
         <h2>Recent Reviews</h2>
         <% reviews.forEach(function(review) { %>
+        <% review.date = new Date(review.date).toDateString() %>
           <div class="review">
             <div class="review-header">
-              <a href=""><%= review.albumTitle %></a>
-              <span><%= review.reviewDate %></span>
+              <a href="/albums/<%= review.album_id %>"><%= review.album_title %></a>
+              <span><%= review.date %></span>
             </div>
             <p><%= review.review %></p>
-            <span class="review-author">by <a href=""><%= review.author %></a></span>
+            <span class="review-author">by <a href="/users/<%= review.author_id %>"><%= review.author %></a></span>
           </div>
         <% }) %>
       </div>

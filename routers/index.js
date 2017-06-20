@@ -10,14 +10,19 @@ router.use('/users', users)
 router.use('/albums', albums)
 
 router.get('/', (request, response, next) => {
-  if(request.isLoggedIn) {
+  if (request.isLoggedIn) {
     database.getAlbums((error, albums) => {
       if (error) { return next(error) }
 
-      response.render('index', {
-        albums: albums,
-        windowTitle: 'Home',
-        isLoggedIn: request.isLoggedIn
+      database.getMostRecentReviews(3, (error, reviews) => {
+        if (error) { return next(error) }
+
+        response.render('index', {
+          albums: albums,
+          reviews: reviews,
+          windowTitle: 'Home',
+          isLoggedIn: request.isLoggedIn
+        })
       })
     })
   }
@@ -60,11 +65,11 @@ router.get('/signup', (request, response) => {
 
 router.post('/signup', (request, response, next) => {
   database.findUserByEmail(request.body, (error, result) => {
-    if(error) { return next(error) }
+    if (error) { return next(error) }
 
-    if(result.length === 0) {
+    if (result.length === 0) {
       database.createUser(request.body, (error, result) => {
-        if(error) { return next(error) }
+        if (error) { return next(error) }
 
         response.redirect('/signin?error=Account created, please sign in')
       })
