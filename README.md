@@ -17,7 +17,7 @@ cd phase-4-challenge
 npm install
 
 # Setup database (make sure postgres is running)
-npm run db:createdb
+npm run db:create
 npm run db:schema
 npm run db:seed
 
