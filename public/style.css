@@ -14,6 +14,7 @@ a:hover {
 
 footer {
   margin: 5vw 3vw;
+  text-align: center;
 }
 
 header {
@@ -28,6 +29,25 @@ header {
 
 .header-logo {
   text-decoration: none;
+}
+
+.album {
+  margin: 0;
+  padding: 0 3vw;
+}
+
+.album h2 {
+  padding: 0;
+  margin: 2vw 0 0 0;
+  font-size: 56px;
+}
+
+.album-header {
+  text-align: center;
+}
+
+.album-reviews {
+  margin: 0 15vw;
 }
 
 .index {

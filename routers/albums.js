@@ -9,11 +9,16 @@ router.get('/:albumID', (request, response, next) => {
   database.getAlbumsByID(albumID, (error, albums) => {
     if (error) { return next(error) }
 
-    const album = albums[0]
-    response.render('album', {
-      album: album,
-      windowTitle: 'Album',
-      isLoggedIn: request.isLoggedIn
+    const reviewParams = { where: `WHERE album_id = ${albumID}`, limit: null }
+    database.getReviews(reviewParams, (error, reviews) => {
+      if (error) { return next(error) }
+
+      response.render('album', {
+        album: albums[0],
+        reviews: reviews,
+        windowTitle: 'Album',
+        isLoggedIn: request.isLoggedIn
+      })
     })
   })
 })

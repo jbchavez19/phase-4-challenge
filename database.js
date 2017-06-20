@@ -26,21 +26,22 @@ const getAlbumsByID = function(albumID, callback) {
   query("SELECT * FROM albums WHERE id = $1", [albumID], callback)
 }
 
-const getMostRecentReviews = function(limit, callback) {
+const getReviews = function(params, callback) {
   const sql = "SELECT" +
-    " albums.id AS album_id," +
+    " album_id," +
     " albums.title AS album_title," +
     " date_created AS date," +
     " review," +
-    " users.id AS author_id," +
+    " user_id AS author_id," +
     " users.name AS author" +
     " FROM reviews" +
     " INNER JOIN users ON reviews.user_id = users.id" +
-    " INNER JOIN albums ON reviews.album_id = albums.id" +
+    " INNER JOIN albums ON reviews.album_id = albums.id " +
+    params.where +
     " ORDER BY reviews.id" +
     " DESC" +
     " LIMIT $1"
-  query(sql, [limit], callback)
+  query(sql, [params.limit], callback)
 }
 
 const createUser = function(user, callback) {
@@ -62,7 +63,7 @@ const findUserById = function(id, callback) {
 module.exports = {
   getAlbums,
   getAlbumsByID,
-  getMostRecentReviews,
+  getReviews,
   createUser,
   findUserByEmail,
   findUserById,
