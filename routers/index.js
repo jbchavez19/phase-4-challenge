@@ -3,11 +3,13 @@ const passport = require('passport')
 const database = require('../database')
 const users = require('./users')
 const albums = require('./albums')
+const reviews = require('./reviews')
 
 const router = express.Router()
 
 router.use('/users', users)
 router.use('/albums', albums)
+router.use('/reviews', reviews)
 
 router.get('/', (request, response, next) => {
   if (request.isLoggedIn) {

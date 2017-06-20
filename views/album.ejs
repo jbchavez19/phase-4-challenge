@@ -7,7 +7,7 @@
 
 
     <div class="album-reviews">
-      <form action="<%= album.id %>/review" method="get">
+      <form action="/reviews/album/<%= album.id %>" method="get">
         <h3>Reviews</h3>
         <input type="hidden" name="title" value="<%= album.title %>">
         <button type="submit">Add Review</button>

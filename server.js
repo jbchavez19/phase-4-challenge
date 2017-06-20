@@ -60,12 +60,13 @@ app.use(cookieSession({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use((request, response, next) => {
-  request.isLoggedIn = request.user ? true : false
+  request.isLoggedIn = request.user ? request.user.id : false
   next()
 })
 app.use('/', routers)
 
 app.use((error, request, response, next) => {
+  console.log("Error: ", error)
   response.status(500).render('error', {
      error: error,
      windowTitle: 'Error',

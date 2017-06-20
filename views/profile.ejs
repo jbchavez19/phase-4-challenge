@@ -15,7 +15,12 @@
             <span><%= review.date %></span>
           </div>
           <p><%= review.review %></p>
-          <span class="review-author">by <a href="/users/<%= review.author_id %>"><%= review.author %></a></span>
+          <span class="review-author">
+            by <a href="/users/<%= review.author_id %>"><%= review.author %></a>
+            <% if (isLoggedIn === review.author_id) { %>
+              <a href="javascript:deleteReview(<%= review.id %>)"><i class="fa fa-trash"></i></a>
+            <% } %>
+          </span>
         </div>
       <% }) %>
     </div>

@@ -32,6 +32,10 @@ const createReview = function(params, callback) {
   query(sql, [params.albumId, params.userId, params.review], callback)
 }
 
+const deleteReview = function(reviewId, callback) {
+  query("DELETE FROM reviews WHERE id = $1", [reviewId], callback)
+}
+
 const getReviews = function(params, callback) {
   let where = ""
   if (params.filter && params.filterValue) {
@@ -39,11 +43,12 @@ const getReviews = function(params, callback) {
   }
 
   const sql = "SELECT" +
-    " album_id," +
+    " reviews.id," +
+    " reviews.album_id," +
     " albums.title AS album_title," +
-    " date_created AS date," +
-    " review," +
-    " user_id AS author_id," +
+    " reviews.date_created AS date," +
+    " reviews.review," +
+    " reviews.user_id AS author_id," +
     " users.name AS author" +
     " FROM reviews" +
     " INNER JOIN users ON reviews.user_id = users.id" +
@@ -72,6 +77,7 @@ module.exports = {
   getAlbums,
   getAlbumsByID,
   createReview,
+  deleteReview,
   getReviews,
   createUser,
   findUserByEmail,
