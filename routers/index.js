@@ -10,21 +10,30 @@ router.use('/users', users)
 router.use('/albums', albums)
 
 router.get('/', (request, response) => {
-  database.getAlbums((error, albums) => {
-    if (error) {
-      response.status(500).render('error', {
-         error: error,
-         windowTitle: 'Error',
-         isLoggedIn: request.isLoggedIn
-      })
-    } else {
-      response.render('index', {
-        albums: albums,
-        windowTitle: 'Home',
-        isLoggedIn: request.isLoggedIn
-      })
-    }
-  })
+  if(request.isLoggedIn) {
+    database.getAlbums((error, albums) => {
+      if (error) {
+        response.status(500).render('error', {
+           error: error,
+           windowTitle: 'Error',
+           isLoggedIn: request.isLoggedIn
+        })
+      } else {
+        response.render('index', {
+          albums: albums,
+          windowTitle: 'Home',
+          isLoggedIn: request.isLoggedIn
+        })
+      }
+    })
+  }
+  else {
+    response.render('splash', {
+      windowTitle: 'Splash',
+      isLoggedIn: request.isLoggedIn
+    })
+  }
+
 })
 
 router.get('/signin', (request, response) => {

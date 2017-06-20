@@ -4,6 +4,10 @@ html, body {
   width: 100vw;
 }
 
+a, a:visited {
+  color: black;
+}
+
 .index-banner {
   width: 100vw;
   margin: 0;
@@ -22,4 +26,8 @@ html, body {
 
 .profile-block {
   display: flex;
+}
+
+.splash-block {
+  text-align: center;
 }
